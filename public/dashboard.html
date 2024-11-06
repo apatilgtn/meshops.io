@@ -4,106 +4,222 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - MeshOps.io</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/styles.css">
-
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body class="bg-gray-100">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between h-16">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="w-64 bg-gray-900 text-white">
+            <!-- Logo -->
+            <div class="p-4 border-b border-gray-800">
                 <div class="flex items-center">
-                    <span class="text-2xl font-bold text-blue-600">MeshOps.io</span>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <span class="text-gray-600">Welcome, Demo User</span>
-                    <button onclick="window.location.href='index.html'" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                        Logout
-                    </button>
+                    <i class="fas fa-cube text-2xl text-blue-500 mr-2"></i>
+                    <span class="text-xl font-bold">MeshOps.io</span>
                 </div>
             </div>
+
+            <!-- User Info -->
+            <div class="p-4 border-b border-gray-800">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center">
+                        <i class="fas fa-user text-sm"></i>
+                    </div>
+                    <div class="ml-3">
+                        <p class="font-medium">Welcome,</p>
+                        <p class="text-sm text-gray-300">User</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="p-4">
+                <div class="space-y-4">
+                    <!-- Dashboard -->
+                    <a href="dashboard.html" class="flex items-center space-x-2 bg-gray-800 text-white p-2 rounded">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+
+                    <!-- Support Options Section -->
+                    <div>
+                        <p class="text-xs text-gray-400 uppercase font-semibold mb-2">Support Options</p>
+                        <div class="space-y-2">
+                            <a href="tickets.html" class="flex items-center space-x-2 text-gray-300 hover:bg-gray-800 p-2 rounded">
+                                <i class="fas fa-ticket-alt"></i>
+                                <span>Support Tickets</span>
+                            </a>
+                            <a href="chat.html" class="flex items-center space-x-2 text-gray-300 hover:bg-gray-800 p-2 rounded">
+                                <i class="fas fa-comments"></i>
+                                <span>Live Chat</span>
+                            </a>
+                            <a href="video-support.html" class="flex items-center space-x-2 text-gray-300 hover:bg-gray-800 p-2 rounded">
+                                <i class="fas fa-video"></i>
+                                <span>Video Support</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Resources Section -->
+                    <div>
+                        <p class="text-xs text-gray-400 uppercase font-semibold mb-2">Resources</p>
+                        <div class="space-y-2">
+                            <a href="documentation.html" class="flex items-center space-x-2 text-gray-300 hover:bg-gray-800 p-2 rounded">
+                                <i class="fas fa-book"></i>
+                                <span>Documentation</span>
+                            </a>
+                            <a href="training.html" class="flex items-center space-x-2 text-gray-300 hover:bg-gray-800 p-2 rounded">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>Training</span>
+                            </a>
+                            <a href="community.html" class="flex items-center space-x-2 text-gray-300 hover:bg-gray-800 p-2 rounded">
+                                <i class="fas fa-users"></i>
+                                <span>Community</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Provider Tools Section -->
+                    <div>
+                        <p class="text-xs text-gray-400 uppercase font-semibold mb-2">Provider Tools</p>
+                        <div class="space-y-2">
+                            <a href="agent.html" class="flex items-center space-x-2 text-gray-300 hover:bg-gray-800 p-2 rounded">
+                                <i class="fas fa-headset"></i>
+                                <span>Agent Dashboard</span>
+                            </a>
+                            <a href="analytics.html" class="flex items-center space-x-2 text-gray-300 hover:bg-gray-800 p-2 rounded">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Analytics</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
         </div>
-    </nav>
 
-    <!-- Main Content -->
-    <div class="max-w-7xl mx-auto py-6 px-4">
-        <h1 class="text-3xl font-bold text-gray-900 mb-8">Technical Support Options</h1>
-
-        <!-- Support Options Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Instant Chat Support -->
-            <div class="bg-white p-6 rounded-lg shadow-lg">
-                <div class="text-4xl text-blue-600 mb-4">
-                    <i class="fas fa-comments"></i>
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Bar -->
+            <header class="bg-white shadow">
+                <div class="flex items-center justify-between p-4">
+                    <h1 class="text-2xl font-semibold text-gray-800">Dashboard Overview</h1>
+                    <div class="flex items-center space-x-4">
+                        <button class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-bell text-xl"></i>
+                        </button>
+                        <button class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-sign-out-alt text-xl"></i>
+                        </button>
+                    </div>
                 </div>
-                <h3 class="text-xl font-bold mb-2">Live Chat Support</h3>
-                <p class="text-gray-600 mb-4">Get instant help from our technical experts</p>
-                <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-                    Start Chat
-                </button>
-            </div>
+            </header>
 
-            <!-- Video Consultation -->
-            <div class="bg-white p-6 rounded-lg shadow-lg">
-                <div class="text-4xl text-blue-600 mb-4">
-                    <i class="fas fa-video"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-2">Video Consultation</h3>
-                <p class="text-gray-600 mb-4">Schedule a video call with our Istio experts</p>
-                <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-                    Book Session
-                </button>
-            </div>
+            <!-- Main Content Area -->
+            <main class="flex-1 overflow-y-auto p-6">
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-4 gap-6 mb-8">
+                    <!-- Open Tickets -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">Open Tickets</p>
+                                <p class="text-3xl font-bold text-gray-800">12</p>
+                            </div>
+                            <div class="bg-blue-100 p-3 rounded-full">
+                                <i class="fas fa-ticket-alt text-blue-600"></i>
+                            </div>
+                        </div>
+                    </div>
 
-            <!-- Ticket System -->
-            <div class="bg-white p-6 rounded-lg shadow-lg">
-                <div class="text-4xl text-blue-600 mb-4">
-                    <i class="fas fa-ticket-alt"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-2">Support Tickets</h3>
-                <p class="text-gray-600 mb-4">Create and track support tickets</p>
-                <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-                    Create Ticket
-                </button>
-            </div>
+                    <!-- Resolved Today -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">Resolved Today</p>
+                                <p class="text-3xl font-bold text-gray-800">8</p>
+                            </div>
+                            <div class="bg-green-100 p-3 rounded-full">
+                                <i class="fas fa-check-circle text-green-600"></i>
+                            </div>
+                        </div>
+                    </div>
 
-            <!-- Documentation -->
-            <div class="bg-white p-6 rounded-lg shadow-lg">
-                <div class="text-4xl text-blue-600 mb-4">
-                    <i class="fas fa-book"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-2">Documentation</h3>
-                <p class="text-gray-600 mb-4">Access our comprehensive documentation</p>
-                <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-                    View Docs
-                </button>
-            </div>
+                    <!-- Average Response Time -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">Avg Response Time</p>
+                                <p class="text-3xl font-bold text-gray-800">15m</p>
+                            </div>
+                            <div class="bg-yellow-100 p-3 rounded-full">
+                                <i class="fas fa-clock text-yellow-600"></i>
+                            </div>
+                        </div>
+                    </div>
 
-            <!-- Training -->
-            <div class="bg-white p-6 rounded-lg shadow-lg">
-                <div class="text-4xl text-blue-600 mb-4">
-                    <i class="fas fa-graduation-cap"></i>
+                    <!-- Active Agents -->
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">Active Agents</p>
+                                <p class="text-3xl font-bold text-gray-800">5</p>
+                            </div>
+                            <div class="bg-purple-100 p-3 rounded-full">
+                                <i class="fas fa-users text-purple-600"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <h3 class="text-xl font-bold mb-2">Training Resources</h3>
-                <p class="text-gray-600 mb-4">Access training materials and workshops</p>
-                <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-                    Start Learning
-                </button>
-            </div>
 
-            <!-- Community Forum -->
-            <div class="bg-white p-6 rounded-lg shadow-lg">
-                <div class="text-4xl text-blue-600 mb-4">
-                    <i class="fas fa-users"></i>
+                <!-- Quick Actions -->
+                <div class="bg-white rounded-lg shadow mb-8">
+                    <div class="p-6">
+                        <h2 class="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h2>
+                        <div class="grid grid-cols-3 gap-4">
+                            <button onclick="window.location.href='tickets.html'" 
+                                    class="flex items-center justify-center space-x-2 bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700">
+                                <i class="fas fa-plus"></i>
+                                <span>New Support Ticket</span>
+                            </button>
+                            <button onclick="window.location.href='chat.html'"
+                                    class="flex items-center justify-center space-x-2 bg-green-600 text-white p-3 rounded-lg hover:bg-green-700">
+                                <i class="fas fa-comments"></i>
+                                <span>Start Live Chat</span>
+                            </button>
+                            <button onclick="window.location.href='video-support.html'"
+                                    class="flex items-center justify-center space-x-2 bg-purple-600 text-white p-3 rounded-lg hover:bg-purple-700">
+                                <i class="fas fa-video"></i>
+                                <span>Schedule Video Call</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <h3 class="text-xl font-bold mb-2">Community Forum</h3>
-                <p class="text-gray-600 mb-4">Connect with other Istio users</p>
-                <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-                    Join Forum
-                </button>
-            </div>
+
+                <!-- Recent Activity -->
+                <div class="bg-white rounded-lg shadow">
+                    <div class="p-6 border-b">
+                        <h2 class="text-lg font-semibold text-gray-800">Recent Activity</h2>
+                    </div>
+                    <div class="p-6">
+                        <div class="space-y-4">
+                            <!-- Activity Item -->
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="bg-blue-100 p-2 rounded-full">
+                                        <i class="fas fa-ticket-alt text-blue-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium">New ticket created: #1234</p>
+                                        <p class="text-xs text-gray-500">2 minutes ago</p>
+                                    </div>
+                                </div>
+                                <a href="#" class="text-blue-600 hover:text-blue-800">View</a>
+                            </div>
+                            <!-- Add more activity items as needed -->
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
     </div>
 </body>

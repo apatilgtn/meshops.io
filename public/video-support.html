@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Support - MeshOps.io</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .platform-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .platform-card.selected {
+            border-color: #10B981;
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+        .platform-card:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="w-64 bg-gray-900 text-white">
+            <!-- Logo -->
+            <div class="p-4 border-b border-gray-800">
+                <div class="flex items-center">
+                    <i class="fas fa-cube text-2xl mr-2"></i>
+                    <span class="text-xl font-bold">MeshOps.io</span>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="p-4">
+                <div class="space-y-4">
+                    <!-- Dashboard -->
+                    <a href="dashboard.html" class="block py-2.5 px-4 rounded hover:bg-gray-800">
+                        <i class="fas fa-home mr-2"></i>
+                        Dashboard
+                    </a>
+
+                    <!-- Support Options -->
+                    <div class="space-y-2">
+                        <p class="text-sm text-gray-400 uppercase font-semibold px-4">Support Options</p>
+                        <a href="tickets.html" class="block py-2.5 px-4 rounded hover:bg-gray-800">
+                            <i class="fas fa-ticket-alt mr-2"></i>
+                            Support Tickets
+                        </a>
+                        <a href="chat.html" class="block py-2.5 px-4 rounded hover:bg-gray-800">
+                            <i class="fas fa-comments mr-2"></i>
+                            Live Chat
+                        </a>
+                        <a href="video-support.html" class="block py-2.5 px-4 rounded bg-gray-800">
+                            <i class="fas fa-video mr-2"></i>
+                            Video Support
+                        </a>
+                    </div>
+
+                    <!-- Resources -->
+                    <div class="space-y-2">
+                        <p class="text-sm text-gray-400 uppercase font-semibold px-4">Resources</p>
+                        <a href="#" class="block py-2.5 px-4 rounded hover:bg-gray-800">
+                            <i class="fas fa-book mr-2"></i>
+                            Documentation
+                        </a>
+                        <a href="#" class="block py-2.5 px-4 rounded hover:bg-gray-800">
+                            <i class="fas fa-graduation-cap mr-2"></i>
+                            Training
+                        </a>
+                        <a href="#" class="block py-2.5 px-4 rounded hover:bg-gray-800">
+                            <i class="fas fa-users mr-2"></i>
+                            Community
+                        </a>
+                    </div>
+
+                    <!-- Provider Tools -->
+                    <div class="space-y-2">
+                        <p class="text-sm text-gray-400 uppercase font-semibold px-4">Provider Tools</p>
+                        <a href="#" class="block py-2.5 px-4 rounded hover:bg-gray-800">
+                            <i class="fas fa-headset mr-2"></i>
+                            Agent Dashboard
+                        </a>
+                        <a href="#" class="block py-2.5 px-4 rounded hover:bg-gray-800">
+                            <i class="fas fa-chart-line mr-2"></i>
+                            Analytics
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Bar -->
+            <header class="bg-white shadow">
+                <div class="flex items-center justify-between p-4">
+                    <h1 class="text-xl font-semibold">Video Support Session</h1>
+                    <div class="flex items-center space-x-4">
+                        <button class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-bell"></i>
+                        </button>
+                        <button class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content Area -->
+            <main class="flex-1 overflow-y-auto p-6">
+                <!-- Quick Stats -->
+                <div class="grid grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="text-gray-500">Available Experts</p>
+                                <p class="text-2xl font-bold">5</p>
+                            </div>
+                            <div class="bg-green-100 p-3 rounded-full">
+                                <i class="fas fa-user-tie text-green-600"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="text-gray-500">Next Available Slot</p>
+                                <p class="text-2xl font-bold">15min</p>
+                            </div>
+                            <div class="bg-blue-100 p-3 rounded-full">
+                                <i class="fas fa-clock text-blue-600"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="text-gray-500">Today's Sessions</p>
+                                <p class="text-2xl font-bold">8</p>
+                            </div>
+                            <div class="bg-purple-100 p-3 rounded-full">
+                                <i class="fas fa-calendar-check text-purple-600"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="text-gray-500">Avg Duration</p>
+                                <p class="text-2xl font-bold">45min</p>
+                            </div>
+                            <div class="bg-yellow-100 p-3 rounded-full">
+                                <i class="fas fa-hourglass-half text-yellow-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Platform Selection -->
+                <div class="bg-white rounded-lg shadow p-6 mb-8">
+                    <h2 class="text-xl font-semibold mb-6">Choose Meeting Platform</h2>
+                    <div class="grid grid-cols-4 gap-6">
+                        <!-- Zoom -->
+                        <div class="platform-card bg-gray-50 rounded-lg p-6 cursor-pointer" onclick="selectPlatform('zoom')">
+                            <img src="/api/placeholder/64/64" alt="Zoom Logo" class="w-16 h-16 mb-4 mx-auto">
+                            <h3 class="text-lg font-semibold text-center mb-2">Zoom</h3>
+                            <div class="text-sm text-gray-600 text-center">
+                                <p>HD Video</p>
+                                <p>Screen Sharing</p>
+                                <p>Recording</p>
+                            </div>
+                        </div>
+
+                        <!-- Google Meet -->
+                        <div class="platform-card bg-gray-50 rounded-lg p-6 cursor-pointer" onclick="selectPlatform('meet')">
+                            <img src="/api/placeholder/64/64" alt="Google Meet Logo" class="w-16 h-16 mb-4 mx-auto">
+                            <h3 class="text-lg font-semibold text-center mb-2">Google Meet</h3>
+                            <div class="text-sm text-gray-600 text-center">
+                                <p>Calendar Integration</p>
+                                <p>No Downloads</p>
+                                <p>Live Captions</p>
+                            </div>
+                        </div>
+
+                        <!-- Teams -->
+                        <div class="platform-card bg-gray-50 rounded-lg p-6 cursor-pointer" onclick="selectPlatform('teams')">
+                            <img src="/api/placeholder/64/64" alt="MS Teams Logo" class="w-16 h-16 mb-4 mx-auto">
+                            <h3 class="text-lg font-semibold text-center mb-2">MS Teams</h3>
+                            <div class="text-sm text-gray-600 text-center">
+                                <p>Office Integration</p>
+                                <p>Team Collaboration</p>
+                                <p>File Sharing</p>
+                            </div>
+                        </div>
+
+                        <!-- Browser Direct -->
+                        <div class="platform-card bg-gray-50 rounded-lg p-6 cursor-pointer" onclick="selectPlatform('webrtc')">
+                            <img src="/api/placeholder/64/64" alt="WebRTC Logo" class="w-16 h-16 mb-4 mx-auto">
+                            <h3 class="text-lg font-semibold text-center mb-2">Browser Direct</h3>
+                            <div class="text-sm text-gray-600 text-center">
+                                <p>No Installation</p>
+                                <p>Instant Connect</p>
+                                <p>Low Latency</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Available Time Slots -->
+                <div class="bg-white rounded-lg shadow p-6 mb-8">
+                    <h2 class="text-xl font-semibold mb-6">Available Time Slots</h2>
+                    <div class="grid grid-cols-3 gap-4">
+                        <button class="p-4 border rounded-lg hover:border-blue-500 focus:border-blue-500">
+                            <p class="font-medium">Today</p>
+                            <p class="text-sm text-gray-500">2:00 PM EST</p>
+                        </button>
+                        <button class="p-4 border rounded-lg hover:border-blue-500 focus:border-blue-500">
+                            <p class="font-medium">Today</p>
+                            <p class="text-sm text-gray-500">4:00 PM EST</p>
+                        </button>
+                        <button class="p-4 border rounded-lg hover:border-blue-500 focus:border-blue-500">
+                            <p class="font-medium">Tomorrow</p>
+                            <p class="text-sm text-gray-500">10:00 AM EST</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Meeting Details Form -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-xl font-semibold mb-6">Meeting Details</h2>
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Topic</label>
+                                <select class="w-full border rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500">
+                                    <option>Istio Installation</option>
+                                    <option>Configuration Review</option>
+                                    <option>Performance Optimization</option>
+                                    <option>Security Assessment</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Duration</label>
+                                <select class="w-full border rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500">
+                                    <option>30 minutes</option>
+                                    <option>45 minutes</option>
+                                    <option>1 hour</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                            <textarea 
+                                rows="4" 
+                                class="w-full border rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500"
+                                placeholder="Describe what you'd like to discuss..."></textarea>
+                        </div>
+
+                        <div class="flex justify-end space-x-4">
+                            <button type="button" 
+                                    class="px-4 py-2 border rounded-lg hover:bg-gray-50">
+                                Cancel
+                            </button>
+                            <button type="button" 
+                                    onclick="scheduleSession()"
+                                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                Schedule Session
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-check text-2xl text-green-600"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Session Scheduled!</h3>
+                <p class="text-gray-600 mb-6">Your video support session has been scheduled successfully.</p>
+                <div id="session-details" class="bg-gray-50 rounded-lg p-4 text-left mb-6">
+                    <p class="mb-2"><strong>Date:</strong> <span id="session-date"></span></p>
+                    <p class="mb-2"><strong>Platform:</strong> <span id="session-platform"></span></p>
+                    <p class="mb-2"><strong>Join Link:</strong> <span id="session-link" class="text-blue-600"></span></p>
+                </div>
+                <div class="flex justify-end">
+                    <button onclick="closeSuccessModal()" 
+                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        Done
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedPlatform = '';
+
+        function selectPlatform(platform) {
+            // Remove previous selection
+            document.querySelectorAll('.platform-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+
+            // Add selection to clicked platform
+            const card = event.currentTarget;
+            card.classList.add('selected');
+            selectedPlatform = platform;
+
+            // Update platform specific settings display
+            updatePlatformSettings(platform);
+        }
+
+        function updatePlatformSettings(platform) {
+            const platformInfo = {
+                zoom: {
+                    name: 'Zoom',
+                    features: ['Waiting Room', 'Meeting Recording', 'Screen Sharing', 'Meeting Password'],
+                    requiresDownload: true
+                },
+                meet: {
+                    name: 'Google Meet',
+                    features: ['Calendar Integration', 'Live Captions', 'No Download Required'],
+                    requiresDownload: false
+                },
+                teams: {
+                    name: 'Microsoft Teams',
+                    features: ['Office Integration', 'Team Chat', 'File Sharing'],
+                    requiresDownload: true
+                },
+                webrtc: {
+                    name: 'Browser Direct',
+                    features: ['Instant Connect', 'No Download Required', 'Low Latency'],
+                    requiresDownload: false
+                }
+            };
+
+            // Update UI with platform specific information
+            const info = platformInfo[platform];
+            if (info) {
+                // You can add UI updates here based on the selected platform
+                console.log(`Selected platform: ${info.name}`);
+            }
+        }
+
+        function scheduleSession() {
+            // Validate form
+            if (!selectedPlatform) {
+                alert('Please select a meeting platform');
+                return;
+            }
+
+            // Show loading state
+            const button = event.target;
+            const originalText = button.innerText;
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Scheduling...';
+
+            // Simulate API call to schedule meeting
+            setTimeout(() => {
+                // Update session details
+                document.getElementById('session-date').textContent = 'Today, 2:00 PM EST';
+                document.getElementById('session-platform').textContent = selectedPlatform.toUpperCase();
+                document.getElementById('session-link').textContent = 'https://meet.example.com/abc123';
+
+                // Show success modal
+                document.getElementById('success-modal').classList.remove('hidden');
+
+                // Reset button
+                button.disabled = false;
+                button.innerText = originalText;
+            }, 1500);
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('success-modal').classList.add('hidden');
+            // Optionally redirect to dashboard or clear form
+            // window.location.href = 'dashboard.html';
+        }
+
+        // Calendar Integration Functions
+        async function initializeCalendarAPI() {
+            // Initialize Google Calendar API
+            try {
+                // Implementation would go here
+                console.log('Calendar API initialized');
+            } catch (error) {
+                console.error('Failed to initialize calendar API:', error);
+            }
+        }
+
+        async function checkAvailability(date) {
+            // Check calendar availability
+            try {
+                // Implementation would go here
+                return true;
+            } catch (error) {
+                console.error('Failed to check availability:', error);
+                return false;
+            }
+        }
+
+        // Platform Specific Integration Functions
+        const platformIntegrations = {
+            zoom: {
+                createMeeting: async (details) => {
+                    // Zoom API implementation would go here
+                    return {
+                        id: 'zoom-123',
+                        link: 'https://zoom.us/j/123456789',
+                        password: '123456'
+                    };
+                }
+            },
+            meet: {
+                createMeeting: async (details) => {
+                    // Google Meet API implementation would go here
+                    return {
+                        id: 'meet-123',
+                        link: 'https://meet.google.com/abc-defg-hij'
+                    };
+                }
+            },
+            teams: {
+                createMeeting: async (details) => {
+                    // MS Teams API implementation would go here
+                    return {
+                        id: 'teams-123',
+                        link: 'https://teams.microsoft.com/l/meetup-join/123'
+                    };
+                }
+            },
+            webrtc: {
+                createMeeting: async (details) => {
+                    // WebRTC implementation would go here
+                    return {
+                        id: 'webrtc-123',
+                        link: 'https://meshops.io/meet/abc123'
+                    };
+                }
+            }
+        };
+
+        // Notification System
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg text-white ${
+                type === 'success' ? 'bg-green-500' : 'bg-red-500'
+            } transform transition-all duration-500 opacity-0`;
+            
+            notification.innerHTML = `
+                <div class="flex items-center space-x-2">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+
+            document.body.appendChild(notification);
+
+            // Animate in
+            setTimeout(() => {
+                notification.classList.remove('opacity-0');
+            }, 100);
+
+            // Remove after delay
+            setTimeout(() => {
+                notification.classList.add('opacity-0');
+                setTimeout(() => {
+                    notification.remove();
+                }, 500);
+            }, 3000);
+        }
+
+        // Initialize everything when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeCalendarAPI();
+            
+            // Add event listeners for time slot selection
+            document.querySelectorAll('.time-slot').forEach(slot => {
+                slot.addEventListener('click', async (e) => {
+                    const isAvailable = await checkAvailability(slot.dataset.time);
+                    if (isAvailable) {
+                        // Handle time slot selection
+                        console.log('Time slot selected:', slot.dataset.time);
+                    } else {
+                        showNotification('This time slot is no longer available', 'error');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

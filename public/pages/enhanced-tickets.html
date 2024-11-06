@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Ticket System - MeshOps.io</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .notification-badge {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .ticket-update {
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .live-indicator {
+            position: relative;
+        }
+
+        .live-indicator::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #10B981;
+            border-radius: 50%;
+            right: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Notification Center -->
+    <div id="notification-center" class="fixed right-4 top-4 z-50 w-80 space-y-2"></div>
+
+    <!-- Real-time Status Bar -->
+    <div class="bg-blue-600 text-white px-4 py-2 flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+            <span class="live-indicator">LIVE</span>
+            <span>Active Agents: 5</span>
+            <span>Avg Response Time: 2.5 min</span>
+        </div>
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-signal"></i>
+            <span>Connected</span>
+        </div>
+    </div>
+
+    <!-- Enhanced Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-blue-600">MeshOps.io</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <!-- Notification Bell -->
+                    <div class="relative">
+                        <button onclick="toggleNotificationPanel()" class="text-gray-600 hover:text-gray-800">
+                            <i class="fas fa-bell text-xl"></i>
+                            <span id="notification-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center notification-badge">
+                                3
+                            </span>
+                        </button>
+                    </div>
+                    <span class="text-gray-600">Welcome, <span id="user-name">User</span></span>
+                    <button class="text-gray-600 hover:text-gray-800">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Notification Panel -->
+    <div id="notification-panel" class="hidden fixed right-4 top-16 w-80 bg-white rounded-lg shadow-xl z-50">
+        <div class="p-4 border-b">
+            <div class="flex justify-between items-center">
+                <h3 class="font-bold">Notifications</h3>
+                <button onclick="markAllRead()" class="text-sm text-blue-600 hover:text-blue-800">
+                    Mark all as read
+                </button>
+            </div>
+        </div>
+        <div class="max-h-96 overflow-y-auto">
+            <div class="p-4 border-b hover:bg-gray-50 cursor-pointer">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0">
+                        <span class="bg-blue-100 text-blue-600 rounded-full p-2">
+                            <i class="fas fa-ticket-alt"></i>
+                        </span>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm font-medium">Ticket #1234 Updated</p>
+                        <p class="text-sm text-gray-500">Agent response received</p>
+                        <p class="text-xs text-gray-400 mt-1">2 minutes ago</p>
+                    </div>
+                </div>
+            </div>
+            <!-- More notification items -->
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <!-- Enhanced Ticket Management -->
+        <div class="mb-8 flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Support Tickets</h1>
+                <p class="mt-2 text-gray-600">Real-time ticket management system</p>
+            </div>
+            <div class="flex space-x-4">
+                <button onclick="toggleView('grid')" class="p-2 text-gray-600 hover:text-blue-600">
+                    <i class="fas fa-th-large"></i>
+                </button>
+                <button onclick="toggleView('list')" class="p-2 text-gray-600 hover:text-blue-600">
+                    <i class="fas fa-list"></i>
+                </button>
+                <button onclick="openNewTicketModal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                    <i class="fas fa-plus mr-2"></i> New Ticket
+                </button>
+            </div>
+        </div>
+
+        <!-- Advanced Filters -->
+        <div class="bg-white p-4 rounded-lg shadow mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Status</label>
+                    <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        <option value="all">All Status</option>
+                        <option value="open">Open</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="resolved">Resolved</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Priority</label>
+                    <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        <option value="all">All Priorities</option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                        <option value="critical">Critical</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Date Range</label>
+                    <input type="date" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Search</label>
+                    <input type="text" 
+                           placeholder="Search tickets..." 
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                </div>
+            </div>
+        </div>
+
+        <!-- Real-time Ticket Updates -->
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="p-4 border-b">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-lg font-medium text-gray-900">Active Tickets</h2>
+                    <span class="text-sm text-gray-500">
+                        Last updated: <span id="last-update-time">Just now</span>
+                    </span>
+                </div>
+            </div>
+            <div class="divide-y divide-gray-200">
+                <!-- Ticket Item with Real-time Updates -->
+                <div class="p-4 hover:bg-gray-50 transition-colors duration-150">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    Active
+                                </span>
+                            </div>
+                            <div class="ml-4">
+                                <div class="text-sm font-medium text-blue-600">
+                                    #1234 - Istio Gateway Configuration Issue
+                                </div>
+                                <div class="text-sm text-gray-500 flex items-center">
+                                    <span class="mr-2">Priority: High</span>
+                                    <span class="mr-2">•</span>
+                                    <span>Updated 2 min ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="text-sm text-gray-500">
+                                <i class="fas fa-comments mr-1"></i> 3
+                            </div>
+                            <div class="text-sm text-gray-500">
+                                <i class="fas fa-paperclip mr-1"></i> 2
+                            </div>
+                            <button class="text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Real-time Activity Feed -->
+                    <div class="mt-4 pl-12">
+                        <div class="text-sm text-gray-500">
+                            <i class="fas fa-user-circle mr-2"></i>
+                            Agent John is typing...
+                        </div>
+                    </div>
+                </div>
+                <!-- More ticket items -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Real-time Activity Feed -->
+    <div class="fixed bottom-0 right-0 w-80 bg-white shadow-lg rounded-t-lg mr-4">
+        <div class="p-4 border-b cursor-pointer" onclick="toggleActivityFeed()">
+            <div class="flex items-center justify-between">
+                <h3 class="font-bold">Activity Feed</h3>
+                <i class="fas fa-chevron-up"></i>
+            </div>
+        </div>
+        <div id="activity-feed" class="max-h-96 overflow-y-auto">
+            <!-- Activity items will be dynamically added here -->
+        </div>
+    </div>
+
+    <script>
+        // Notification System
+        function showNotification(title, message, type = 'info') {
+            const notification = document.createElement('div');
+            const colors = {
+                info: 'bg-blue-500',
+                success: 'bg-green-500',
+                warning: 'bg-yellow-500',
+                error: 'bg-red-500'
+            };
+
+            notification.className = `${colors[type]} text-white p-4 rounded-lg shadow-lg transform transition-all duration-300 ease-in-out`;
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <i class="fas ${type === 'info' ? 'fa-info-circle' : 
+                                    type === 'success' ? 'fa-check-circle' :
+                                    type === 'warning' ? 'fa-exclamation-triangle' : 
+                                    'fa-times-circle'} mr-2"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold">${title}</p>
+                        <p class="text-sm">${message}</p>
+                    </div>
+                    <button onclick="this.parentElement.parentElement.remove()" class="ml-auto">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+
+            document.getElementById('notification-center').prepend(notification);
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+
+        // Real-time Updates
+        let activityFeed = [];
+        
+        function addActivity(activity) {
+            activityFeed.unshift(activity);
+            updateActivityFeed();
+            updateNotificationCount();
+        }
+
+        function updateActivityFeed() {
+            const feed = document.getElementById('activity-feed');
+            feed.innerHTML = activityFeed.map(activity => `
+                <div class="p-4 border-b hover:bg-gray-50">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <i class="fas ${activity.icon} text-blue-600"></i>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm">${activity.message}</p>
+                            <p class="text-xs text-gray-500 mt-1">${activity.time}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateNotificationCount() {
+            const count = document.getElementById('notification-count');
+            const currentCount = parseInt(count.textContent);
+            count.textContent = currentCount + 1;
+        }
+
+        // Simulate real-time updates
+        setInterval(() => {
+            const activities = [
+                { message: 'New ticket assigned to Agent Sarah', icon: 'fa-ticket-alt', time: 'Just now' },
+                { message: 'Ticket #1234 status updated to "In Progress"', icon: 'fa-sync', time: 'Just now' },
+                { message: 'Agent John added a comment to ticket #5678', icon: 'fa-comment', time: 'Just now' }
+            ];
+
+            addActivity(activities[Math.floor(Math.random() * activities.length)]);
+            showNotification('Real-time Update', 'New activity in your tickets', 'info');
+        }, 30000);
+
+        // UI Controls
+        function toggleActivityFeed() {
+            const feed = document.getElementById('activity-feed');
+            feed.classList.toggle('hidden');
+        }
+
+        function toggleNotificationPanel() {
+            const panel = document.getElementById('notification-panel');
+            panel.classList.toggle('hidden');
+        }
+
+        function markAllRead() {
+            document.getElementById('notification-count').textContent = '0';
+            document.getElementById('notification-panel').classList.add('hidden');
+            showNotification('Notifications', 'All notifications marked as read', 'success');
+        }
+
+        // Advanced Ticket Management
+        class TicketManager {
+            constructor() {
+                this.tickets = new Map();
+                this.subscribers = new Set();
+                this.lastUpdate = new Date();
+            }
+
+            addTicket(ticket) {
+                this.tickets.set(ticket.id, {
+                    ...ticket,
+                    status: 'new',
+                    created: new Date(),
+                    updates: []
+                });
+                this.notifySubscribers('ticket_added', ticket);
+                this.updateLastUpdateTime();
+            }
+
+            updateTicket(ticketId, update) {
+                const ticket = this.tickets.get(ticketId);
+                if (ticket) {
+                    ticket.updates.push({
+                        ...update,
+                        timestamp: new Date()
+                    });
+                    ticket.status = update.status || ticket.status;
+                    this.notifySubscribers('ticket_updated', ticket);
+                    this.updateLastUpdateTime();
+                }
+            }
+
+            subscribeToUpdates(callback) {
+                this.subscribers.add(callback);
+                return () => this.subscribers.delete(callback);
+            }
+
+            notifySubscribers(event, data) {
+                this.subscribers.forEach(callback => callback(event, data));
+            }
+
+            updateLastUpdateTime() {
+                this.lastUpdate = new Date();
+                document.getElementById('last-update-time').textContent = 
+                    this.lastUpdate.toLocaleTimeString();
+            }
+        }
+
+        // Initialize Ticket Manager
+        const ticketManager = new TicketManager();
+
+        // Real-time Updates Handler
+        class RealtimeHandler {
+            constructor(ticketManager) {
+                this.ticketManager = ticketManager;
+                this.setupWebSocket();
+                this.setupEventListeners();
+            }
+
+            setupWebSocket() {
+                // Simulate WebSocket connection
+                setInterval(() => {
+                    this.handleRealtimeUpdate();
+                }, 5000);
+            }
+
+            setupEventListeners() {
+                this.ticketManager.subscribeToUpdates((event, data) => {
+                    switch(event) {
+                        case 'ticket_added':
+                            this.handleNewTicket(data);
+                            break;
+                        case 'ticket_updated':
+                            this.handleTicketUpdate(data);
+                            break;
+                    }
+                });
+            }
+
+            handleRealtimeUpdate() {
+                // Simulate random updates
+                const updates = [
+                    { type: 'agent_typing', ticketId: '1234', agentName: 'John' },
+                    { type: 'status_change', ticketId: '5678', status: 'in_progress' },
+                    { type: 'new_comment', ticketId: '9012', agentName: 'Sarah' }
+                ];
+
+                const randomUpdate = updates[Math.floor(Math.random() * updates.length)];
+                this.processUpdate(randomUpdate);
+            }
+
+            processUpdate(update) {
+                switch(update.type) {
+                    case 'agent_typing':
+                        this.showTypingIndicator(update);
+                        break;
+                    case 'status_change':
+                        this.updateTicketStatus(update);
+                        break;
+                    case 'new_comment':
+                        this.handleNewComment(update);
+                        break;
+                }
+            }
+
+            showTypingIndicator(update) {
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'text-sm text-gray-500 mt-2';
+                typingDiv.innerHTML = `
+                    <i class="fas fa-user-circle mr-2"></i>
+                    Agent ${update.agentName} is typing...
+                `;
+                
+                // Remove after 3 seconds
+                setTimeout(() => typingDiv.remove(), 3000);
+
+                const ticket = document.querySelector(`[data-ticket-id="${update.ticketId}"]`);
+                if (ticket) {
+                    ticket.querySelector('.activity-feed').appendChild(typingDiv);
+                }
+            }
+
+            updateTicketStatus(update) {
+                const ticket = document.querySelector(`[data-ticket-id="${update.ticketId}"]`);
+                if (ticket) {
+                    const statusBadge = ticket.querySelector('.status-badge');
+                    statusBadge.className = `status-badge px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                        update.status === 'in_progress' ? 'bg-yellow-100 text-yellow-800' : 
+                        update.status === 'resolved' ? 'bg-green-100 text-green-800' : 
+                        'bg-gray-100 text-gray-800'
+                    }`;
+                    statusBadge.textContent = update.status.replace('_', ' ');
+                    
+                    showNotification(
+                        'Status Update',
+                        `Ticket #${update.ticketId} status changed to ${update.status}`,
+                        'info'
+                    );
+                }
+            }
+
+            handleNewComment(update) {
+                const ticket = document.querySelector(`[data-ticket-id="${update.ticketId}"]`);
+                if (ticket) {
+                    const commentCount = ticket.querySelector('.comment-count');
+                    const currentCount = parseInt(commentCount.textContent);
+                    commentCount.textContent = currentCount + 1;
+
+                    showNotification(
+                        'New Comment',
+                        `Agent ${update.agentName} commented on ticket #${update.ticketId}`,
+                        'info'
+                    );
+                }
+            }
+
+            handleNewTicket(ticket) {
+                this.addTicketToUI(ticket);
+                showNotification(
+                    'New Ticket',
+                    `Ticket #${ticket.id} has been created`,
+                    'success'
+                );
+            }
+
+            handleTicketUpdate(ticket) {
+                this.updateTicketInUI(ticket);
+            }
+
+            addTicketToUI(ticket) {
+                const ticketHtml = this.createTicketElement(ticket);
+                document.querySelector('.ticket-list').insertAdjacentHTML('afterbegin', ticketHtml);
+            }
+
+            updateTicketInUI(ticket) {
+                const existingTicket = document.querySelector(`[data-ticket-id="${ticket.id}"]`);
+                if (existingTicket) {
+                    existingTicket.outerHTML = this.createTicketElement(ticket);
+                }
+            }
+
+            createTicketElement(ticket) {
+                return `
+                    <div class="ticket-item p-4 border-b hover:bg-gray-50 transition-all duration-200"
+                         data-ticket-id="${ticket.id}">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <span class="status-badge px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                                           ${this.getStatusColor(ticket.status)}">
+                                    ${ticket.status}
+                                </span>
+                                <div class="ml-4">
+                                    <div class="text-sm font-medium text-blue-600">
+                                        #${ticket.id} - ${ticket.title}
+                                    </div>
+                                    <div class="text-sm text-gray-500">
+                                        Created ${this.getRelativeTime(ticket.created)}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <span class="comment-count text-sm text-gray-500">
+                                    <i class="fas fa-comments mr-1"></i>
+                                    ${ticket.updates.length}
+                                </span>
+                                <button class="text-blue-600 hover:text-blue-800">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="activity-feed mt-4 pl-12"></div>
+                    </div>
+                `;
+            }
+
+            getStatusColor(status) {
+                const colors = {
+                    new: 'bg-blue-100 text-blue-800',
+                    in_progress: 'bg-yellow-100 text-yellow-800',
+                    resolved: 'bg-green-100 text-green-800',
+                    closed: 'bg-gray-100 text-gray-800'
+                };
+                return colors[status] || colors.new;
+            }
+
+            getRelativeTime(date) {
+                const diff = new Date() - date;
+                const minutes = Math.floor(diff / 60000);
+                if (minutes < 1) return 'just now';
+                if (minutes < 60) return `${minutes}m ago`;
+                const hours = Math.floor(minutes / 60);
+                if (hours < 24) return `${hours}h ago`;
+                return date.toLocaleDateString();
+            }
+        }
+
+        // Initialize Real-time Handler
+        const realtimeHandler = new RealtimeHandler(ticketManager);
+
+        // Start the application
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize with some demo tickets
+            ticketManager.addTicket({
+                id: '1234',
+                title: 'Istio Gateway Configuration Issue',
+                priority: 'high',
+                status: 'new'
+            });
+
+            // Setup event listeners
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // Add your event listeners here
+            document.querySelectorAll('[data-filter]').forEach(filter => {
+                filter.addEventListener('change', applyFilters);
+            });
+        }
+
+        function applyFilters() {
+            // Add your filter logic here
+            showNotification('Filters Applied', 'Ticket list has been updated', 'info');
+        }
+    </script>
+</body>
+</html>
