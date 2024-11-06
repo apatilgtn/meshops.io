@@ -1,0 +1,12 @@
+{
+  "name": "meshops-io",
+  "version": "1.0.0",
+  "description": "MeshOps.io - Professional Service Mesh Support Portal",
+  "scripts": {
+    "start": "http-server public -p 3000",
+    "dev": "http-server public -p 3000"
+  },
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}

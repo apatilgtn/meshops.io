@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - MeshOps.io</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-blue-600">MeshOps.io</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-gray-600">Welcome, Demo User</span>
+                    <button onclick="window.location.href='index.html'" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto py-6 px-4">
+        <h1 class="text-3xl font-bold text-gray-900 mb-8">Technical Support Options</h1>
+
+        <!-- Support Options Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Instant Chat Support -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <div class="text-4xl text-blue-600 mb-4">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Live Chat Support</h3>
+                <p class="text-gray-600 mb-4">Get instant help from our technical experts</p>
+                <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                    Start Chat
+                </button>
+            </div>
+
+            <!-- Video Consultation -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <div class="text-4xl text-blue-600 mb-4">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Video Consultation</h3>
+                <p class="text-gray-600 mb-4">Schedule a video call with our Istio experts</p>
+                <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                    Book Session
+                </button>
+            </div>
+
+            <!-- Ticket System -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <div class="text-4xl text-blue-600 mb-4">
+                    <i class="fas fa-ticket-alt"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Support Tickets</h3>
+                <p class="text-gray-600 mb-4">Create and track support tickets</p>
+                <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                    Create Ticket
+                </button>
+            </div>
+
+            <!-- Documentation -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <div class="text-4xl text-blue-600 mb-4">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Documentation</h3>
+                <p class="text-gray-600 mb-4">Access our comprehensive documentation</p>
+                <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                    View Docs
+                </button>
+            </div>
+
+            <!-- Training -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <div class="text-4xl text-blue-600 mb-4">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Training Resources</h3>
+                <p class="text-gray-600 mb-4">Access training materials and workshops</p>
+                <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                    Start Learning
+                </button>
+            </div>
+
+            <!-- Community Forum -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <div class="text-4xl text-blue-600 mb-4">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Community Forum</h3>
+                <p class="text-gray-600 mb-4">Connect with other Istio users</p>
+                <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                    Join Forum
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
